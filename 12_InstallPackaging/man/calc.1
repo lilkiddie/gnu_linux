@@ -1,0 +1,56 @@
+.TH CALC 1 "January 2024" "calc 1.0" "User Commands"
+.SH NAME
+calc \- simple command-line calculator
+.SH SYNOPSIS
+.B calc
+.I operation num1 num2
+.SH DESCRIPTION
+.B calc
+is a simple command-line calculator that performs basic arithmetic operations
+using the libcalc library.
+.PP
+The program supports the following operations:
+.TP
+.B add
+Addition of two numbers
+.TP
+.B sub
+Subtraction of two numbers
+.TP
+.B mul
+Multiplication of two numbers
+.TP
+.B div
+Division of two numbers
+.TP
+.B pow
+Power (num1 raised to the power of num2)
+.SH OPTIONS
+.TP
+.I operation
+The arithmetic operation to perform (add, sub, mul, div, pow)
+.TP
+.I num1
+The first operand (floating-point number)
+.TP
+.I num2
+The second operand (floating-point number)
+.SH EXAMPLES
+.TP
+Add two numbers:
+.B calc add 5 3
+.TP
+Multiply two numbers:
+.B calc mul 4.5 2
+.TP
+Calculate power:
+.B calc pow 2 10
+.SH AUTHOR
+Written by Your Name.
+.SH "REPORTING BUGS"
+Report bugs to: bug-report@example.com
+.SH COPYRIGHT
+Copyright \(co 2025 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later.
+.SH "SEE ALSO"
+bc(1), dc(1)
