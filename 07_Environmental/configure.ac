@@ -1,8 +1,8 @@
 AC_PREREQ([2.69])
-AC_INIT([hasher], [0.1], [support@example.org])
+AC_INIT([rhasher], [0.1], [support@example.org])
 AM_INIT_AUTOMAKE([foreign -Wall -Werror])
 
-AC_CONFIG_SRCDIR([hasher.c])
+AC_CONFIG_SRCDIR([rhasher.c])
 AC_CONFIG_HEADERS([config.h])
 
 # Check for programs
