@@ -1,0 +1,85 @@
+@@ -1,17 +1,19 @@
++
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <string.h>
+ 
+ typedef struct {
+     int x, y;
+ } Point;
+ 
+-void init_map(char **map, int map_size) {
++void init_map(char **map, int map_size, char path_char, char wall_char) {
+     for (int i = 0; i < map_size; i++) {
+         for (int j = 0; j < map_size; j++) {
+             if (i % 2 == 0 || j % 2 == 0) {
+-                map[i][j] = '#';
++                map[i][j] = wall_char;
+             } else {
+-                map[i][j] = '.';
++                map[i][j] = path_char;
+             }
+         }
+     }
+@@ -21,14 +23,14 @@
+     return x > 0 && x < map_size - 1 && y > 0 && y < map_size - 1;
+ }
+ 
+-void carve_passage(char **map, Point from, Point to) {
++void carve_passage(char **map, Point from, Point to, char path_char) {
+     int dx = (to.x - from.x) / 2;
+     int dy = (to.y - from.y) / 2;
+-    map[from.x + dx][from.y + dy] = '.';
+-    map[to.x][to.y] = '.';
++    map[from.x + dx][from.y + dy] = path_char;
++    map[to.x][to.y] = path_char;
+ }
+ 
+-void generate_maze(char **map, int n) {
++void generate_maze(char **map, int n, char path_char) {
+     int map_size = 2 * n + 1;
+     int visited[n][n];
+     for (int i = 0; i < n; i++) {
+@@ -64,7 +66,7 @@
+ 
+         if (neighbors_count > 0) {
+             Point next = neighbors[rand() % neighbors_count];
+-            carve_passage(map, current, next);
++            carve_passage(map, current, next, path_char);
+             current = next;
+             visited[(current.x - 1) / 2][(current.y - 1) / 2] = 1;
+             stack[stack_size++] = current;
+@@ -85,12 +87,19 @@
+ }
+ 
+ int main(int argc, char *argv[]) {
+-    if (argc < 2) {
+-        fprintf(stderr, "Usage: %s <size>\n", argv[0]);
++    if (argc < 3) {
++        fprintf(stderr, "Usage: %s <path_wall_characters> <size>\n", argv[0]);
++        return 1;
++    }
++
++    if (strlen(argv[1]) != 2) {
++        fprintf(stderr, "The first argument must be a string of exactly two characters.\n");
+         return 1;
+     }
+ 
+-    int n = atoi(argv[1]);
++    char path_char = argv[1][0];
++    char wall_char = argv[1][1];
++    int n = atoi(argv[2]);
+     int map_size = 2 * n + 1;
+ 
+     char **map = malloc(map_size * sizeof(char *));
+@@ -98,8 +107,8 @@
+         map[i] = malloc(map_size * sizeof(char));
+     }
+ 
+-    init_map(map, map_size);
+-    generate_maze(map, n);
++    init_map(map, map_size, path_char, wall_char);
++    generate_maze(map, n, path_char);
+     print_map(map, map_size);
+ 
+     for (int i = 0; i < map_size; i++) {

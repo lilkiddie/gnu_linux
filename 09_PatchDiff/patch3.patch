@@ -1,0 +1,30 @@
+@@ -87,19 +87,22 @@
+ }
+ 
+ int main(int argc, char *argv[]) {
+-    if (argc < 3) {
+-        fprintf(stderr, "Usage: %s <path_wall_characters> <size>\n", argv[0]);
++    if (argc < 4) {
++        fprintf(stderr, "Usage: %s <seed> <path_wall_characters> <size>\n", argv[0]);
+         return 1;
+     }
+ 
+-    if (strlen(argv[1]) != 2) {
+-        fprintf(stderr, "The first argument must be a string of exactly two characters.\n");
++    int seed = atoi(argv[1]);
++    srand(seed);
++    
++    if (strlen(argv[2]) != 2) {
++        fprintf(stderr, "The second argument must be a string of exactly two characters.\n");
+         return 1;
+     }
+ 
+-    char path_char = argv[1][0];
+-    char wall_char = argv[1][1];
+-    int n = atoi(argv[2]);
++    char path_char = argv[2][0];
++    char wall_char = argv[2][1];
++    int n = atoi(argv[3]);
+     int map_size = 2 * n + 1;
+ 
+     char **map = malloc(map_size * sizeof(char *));
